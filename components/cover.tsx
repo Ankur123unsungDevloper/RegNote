@@ -4,7 +4,7 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ImageIcon, X } from "lucide-react";
+import { ImageIcon } from "lucide-react";
 import { useCoverImage } from "@/hooks/use-cover-image";
 import { Skeleton } from "@/components/ui/skeleton";
 

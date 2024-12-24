@@ -130,7 +130,7 @@ export const UserItem = () => {
                 </div>
               </div>
               <div className="flex flex-row items-center justify-start mt-4 ml-10 space-x-4">
-                <Button variant="outline" className="flex h-7 hover:bg-neutral-700/100 hover:text-white text-xs">
+                <Button variant="outline" className="flex h-7 hover:bg-neutral-300 dark:hover:bg-neutral-700/100 hover:text-white text-xs">
                   <TbSettings className="mr-1" />
                   Settings
                 </Button>
@@ -196,7 +196,7 @@ export const UserItem = () => {
         onClick={handleCreate}
         role="button"
         className={cn(
-          "h-8 w-8 rounded-sm hover:bg-neutral-700 absolute right-2 p-1 flex items-center justify-center",
+          "h-8 w-8 rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-700 absolute right-2 p-1 flex items-center justify-center",
           isMobile && "opacity-100"
         )}
       >

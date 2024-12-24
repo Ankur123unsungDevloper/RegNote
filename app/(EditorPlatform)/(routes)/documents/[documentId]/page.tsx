@@ -17,13 +17,12 @@ import { Cover } from "@/components/cover";
 import { Skeleton } from "@/components/ui/skeleton";
 import { auth } from "@clerk/nextjs/server";
 
-// Remove params from here if not used
-export async function generateMetadata() {
-  const { orgSlug } = auth();
-  return {
-    title: startCase(orgSlug || "document"),
-  };
-}
+//export async function generateMetadata() {
+  //const { orgSlug } = auth();
+  //return {
+    //title: startCase(orgSlug || "document"),
+  //};
+//}
 
 interface DocumentIdPageProps {
   params: {

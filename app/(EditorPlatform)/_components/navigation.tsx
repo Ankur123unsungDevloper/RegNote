@@ -134,19 +134,19 @@ export const Navigation = () => {
       <aside
         ref={sidebarRef}
         className={cn(
-          "group/sidebar h-full bg-[#D3D1CB] dark:bg-[#202020] overflow-y-auto relative flex w-60 flex-col z-[99999]",
+          "group/sidebar h-full bg-secondary overflow-y-auto relative flex w-60 flex-col z-[99999]",
           isResetting && "transition-all ease-in-out duration-300",
           isMobile && "w-0"
         )}
       >
         <div className="m-2">
-          <div className="grid grid-flow-row items-center justify-start h-8 rounded-sm hover:bg-neutral-700/40">
+          <div className="grid grid-flow-row items-center justify-start h-8 rounded-sm dark:hover:bg-neutral-700/40">
             <UserItem />
             <div
               onClick={collapse}
               role="button"
               className={cn(
-                "h-8 w-8 text-muted-foreground rounded-sm dark:hover:bg-neutral-700 dark:hover:text-white absolute right-10 mr-2 p-1 flex items-center justify-center opacity-0 group-hover/sidebar:opacity-100",
+                "h-8 w-8 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-700 dark:hover:text-white absolute right-10 mr-2 p-1 flex items-center justify-center opacity-0 group-hover/sidebar:opacity-100",
                 isMobile && "opacity-100"
               )}
             >
@@ -156,7 +156,7 @@ export const Navigation = () => {
           <div className="mt-2">
             <TooltipProvider>
               <Tooltip>
-                <TooltipTrigger className="w-full rounded-sm hover:bg-neutral-700">
+                <TooltipTrigger className="w-full rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-700">
                   <Item
                     label="Search"
                     icon={IoSearch}
@@ -175,7 +175,7 @@ export const Navigation = () => {
             </TooltipProvider>
             <TooltipProvider>
               <Tooltip>
-                <TooltipTrigger className="w-full rounded-sm hover:bg-neutral-700">
+                <TooltipTrigger className="w-full rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-700">
                   <Item
                     label="Home"
                     icon={GrHomeRounded}
@@ -195,7 +195,7 @@ export const Navigation = () => {
             </TooltipProvider>
             <TooltipProvider>
               <Tooltip>
-                <TooltipTrigger className="w-full rounded-sm hover:bg-neutral-700">
+                <TooltipTrigger className="w-full rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-700">
                   <Item
                     label="Inbox"
                     icon={BsInbox}
