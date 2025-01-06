@@ -101,7 +101,7 @@ export const UserItem = () => {
                 <AvatarImage src={user?.imageUrl} />
               </Avatar>
               <span
-                className="text-start font-medium text-sm truncate"
+                className="text-start font-medium text-sm truncate text-black dark:text-white"
               >
                 {isResetting ? name : truncatedName}&apos;s RegNote
               </span>
@@ -121,7 +121,7 @@ export const UserItem = () => {
                   <AvatarImage src={user?.imageUrl} />
                 </Avatar>
                 <div className="flex flex-col items-center justify-start">
-                  <span className="text-start font-medium">
+                  <span className="text-start font-medium text-black dark:text-white">
                     {user?.fullName}&apos;s RegNote
                   </span>
                   <span className="flex items-center text-xs text-muted-foreground mr-8 mt-1">
@@ -159,7 +159,7 @@ export const UserItem = () => {
                 <Avatar className="h-7 w-7">
                   <AvatarImage src={user?.imageUrl} />
                 </Avatar>
-                <span className="text-start font-medium text-xs">
+                <span className="text-start font-medium text-xs text-black dark:text-white">
                   {user?.fullName}&apos;s RegNote
                 </span>
               </div>
@@ -200,7 +200,7 @@ export const UserItem = () => {
           isMobile && "opacity-100"
         )}
       >
-        <IoCreateOutline className="h-8 w-8 font-bold" />
+        <IoCreateOutline className="h-8 w-8 font-bold text-black dark:text-white" />
       </div>
     </div>
   )

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useQuery } from "convex/react";
@@ -24,11 +25,13 @@ import {
 interface NavbarProps {
   isCollapsed: boolean;
   onResetWidth: () => void;
+  date?: string
 };
 
 export const Navbar = ({
   isCollapsed,
-  onResetWidth
+  onResetWidth,
+  date,
 }: NavbarProps) => {
   const params = useParams();
   const { user } = useUser();
@@ -54,7 +57,7 @@ export const Navbar = ({
 
   return (
     <>
-      <nav className="bg-background dark:bg-[#1F1F1F] px-3 py-2 w-full flex items-center">
+      <nav className="bg-secondary dark:bg-[#1F1F1F] px-3 py-2 w-full flex items-center">
         {isCollapsed && (
           <MenuIcon
             role="button"
@@ -69,7 +72,7 @@ export const Navbar = ({
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger className="w-full hover:rounded-sm">
-                    Edited by
+                    Edited by {date}
                   </TooltipTrigger>
                   <TooltipContent className="text-muted-foreground relative left-[35px] top-[1px]">
                     <p className="text-[12px] font-medium">

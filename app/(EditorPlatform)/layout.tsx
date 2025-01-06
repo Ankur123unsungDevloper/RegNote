@@ -7,6 +7,7 @@ import { SearchCommand } from '@/components/search-command';
 
 import { Toaster } from 'sonner';
 import { InboxCommand } from '@/components/inbox-command';
+import { ModalProvider } from '@/components/providers/modal-provider';
 
 const EditorPlatformLayout = ({
   children
@@ -24,6 +25,7 @@ const EditorPlatformLayout = ({
       >
         <Navigation />
         <main className="flex-1 h-full dark:bg-[#1F1F1F]">
+          <ModalProvider />
           <Toaster position='bottom-center' />
           <SearchCommand />
           <InboxCommand />

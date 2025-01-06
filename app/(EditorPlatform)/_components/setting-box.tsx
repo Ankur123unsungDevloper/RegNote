@@ -142,7 +142,7 @@ export const SettingBox = () => {
             </ul>
           </div>
       </aside>
-      <main className="w-3/4 p-8 overflow-hidden">
+      <main className="w-3/4 p-8 overflow-hidden bg-[#D3D1CB] dark:bg-neutral-700">
         <DialogHeader className="text-lg font-bold mb-4">
           My settings
         </DialogHeader>

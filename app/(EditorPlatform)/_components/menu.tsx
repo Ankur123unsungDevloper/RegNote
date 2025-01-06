@@ -60,7 +60,7 @@ export const Menu = ({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-60 bg-neutral-800"
+        className="w-60 dark:bg-neutral-800"
         align="end"
         alignOffset={8}
         forceMount

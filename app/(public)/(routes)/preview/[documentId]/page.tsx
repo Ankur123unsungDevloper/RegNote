@@ -18,7 +18,8 @@ import { Cover } from "@/components/cover";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface DocumentIdPageProps {
-  params: {
+  params:
+  {
     documentId: Id<"documents">;
   };
 };
@@ -27,17 +28,22 @@ const DocumentIdPage = ({
   params
 }: DocumentIdPageProps) => {
 
-  const Editor = useMemo(() => dynamic(() => import("@/components/editor"), { ssr: false }) ,[]);
+  const Editor = useMemo(() => dynamic(() => import("@/components/editor"),
+    {
+      ssr: false
+    }), []);
 
-  const document = useQuery(api.documents.getById, {
-    documentId: params.documentId
-  });
+  const document = useQuery(api.documents.getById,
+    {
+      documentId: params.documentId
+    });
 
-  const update = useMutation(api.documents.update);
+const update = useMutation(api.documents.update);
 
   const onChange = (content: string) => {
     update({
-      id: params.documentId,
+      id:
+        params.documentId,
       content
     });
   };
@@ -59,7 +65,10 @@ const DocumentIdPage = ({
   }
 
   if (document === null) {
-    return <div>Not found</div>
+    return
+    <div>
+      Not found
+    </div>
   }
 
   return (

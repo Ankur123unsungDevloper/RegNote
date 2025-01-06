@@ -6,9 +6,10 @@ import {
   useState
 } from "react";
 
-import { CoverImageModal } from "@/components/modals/cover-image-modal";
+import { CardModal } from "@/components/modals/card-modal";
+import { ProModal } from "@/components/modals/pro-modal";
 
-export const ModalProvider = () => {
+export const ModalProvider1 = () => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export const ModalProvider = () => {
   
   return (
     <>
-      <CoverImageModal />
+      <CardModal />
     </>
   );
 };

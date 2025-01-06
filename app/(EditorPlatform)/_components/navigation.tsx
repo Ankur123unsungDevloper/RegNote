@@ -42,6 +42,12 @@ import {
   PopoverContent,
   PopoverTrigger
 } from "@/components/ui/popover";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { TrashBox } from "./trash-box";
 import { useSearch } from "@/hooks/use-search";
 import { SettingBox } from "./setting-box";
@@ -214,7 +220,16 @@ export const Navigation = () => {
             </TooltipProvider>
           </div>
           <div className="mt-4">
-            <DocumentList />
+            <Accordion type="single" collapsible>
+              <AccordionItem value="item-1">
+                <AccordionTrigger className="text-muted-foreground text-xs ml-4 hover:no-underline">
+                  Private
+                </AccordionTrigger>
+                <AccordionContent>
+                  <DocumentList />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
             <div className="mt-4">
               <Dialog>
                 <DialogTrigger className="w-full mt-4">

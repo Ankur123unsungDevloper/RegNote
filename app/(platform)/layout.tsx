@@ -3,7 +3,7 @@ import { Toaster } from "sonner";
 
 import { WhiteTheme } from "@/app/styles/theme";
 
-import { ModalProvider } from "@/components/providers/modal-provider";
+import { ModalProvider1 } from "@/components/providers/modal-provider1";
 import { QueryProvider } from "@/components/providers/query-provider";
 
 const PlatformLayout = ({
@@ -22,7 +22,7 @@ const PlatformLayout = ({
       >
         <QueryProvider>
           <Toaster />
-          <ModalProvider />
+          <ModalProvider1 />
           {children}
         </QueryProvider>
       </div>
