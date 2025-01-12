@@ -5,7 +5,7 @@ import {
   AccordionTrigger
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { BarChart } from "lucide-react";
+import { BarChart, ChevronDown } from "lucide-react";
 import Link from "next/link";
 
 interface DropdownMenuProps {
@@ -32,7 +32,10 @@ const DropdownMenu = ({
           className="mt-6 border-b"
           value="item-1"
         >
-          <AccordionTrigger>Product</AccordionTrigger>
+          <AccordionTrigger>
+            Product
+            <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
+          </AccordionTrigger>
           <AccordionContent
             defaultValue="item-1"
             className="space-y-2"

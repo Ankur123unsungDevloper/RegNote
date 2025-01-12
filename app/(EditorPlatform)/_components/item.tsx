@@ -161,33 +161,33 @@ export const Item = ({
             >
               <div
                 role="button"
-                className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-700"
+                className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300/30 dark:text-muted-foreground/50"
               >
                 <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              className="w-70 bg-[#262626] border-[#262626] text-white"
+              className="w-60"
               align="start"
               side="right"
               forceMount
             >
-              <DropdownMenuItem className="flex items-center justify-center rounded-t-none-sm text-white m-2">
-                <div
-                  onClick={() => {}}
-                  role="button"
-                  className="flex flex-row items-center justify-center text-sm w-full mr-20"
-                >
-                  <IoIosStarOutline className="h-4 w-4 mr-2" />
-                  Add to Favorites
-                </div>
+              <DropdownMenuItem
+                onClick={() => { }}
+                className="flex items-center rounded-t-none-sm m-2"
+              >
+                <IoIosStarOutline className="h-4 w-4 mr-2" />
+                Add to Favorites
               </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-[#e1ffe133]" />
-              <DropdownMenuItem onClick={onArchive} className="m-2">
+              <DropdownMenuSeparator className="dark:bg-[#e1ffe133]" />
+              <DropdownMenuItem
+                onClick={onArchive}
+                className="m-2"
+              >
                 <IoTrashOutline className="h-4 w-4 mr-2" />
                 Delete
               </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-[#e1ffe133]" />
+              <DropdownMenuSeparator className="dark:bg-[#e1ffe133]" />
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger className="flex flex-col items-center justify-center p-2">
@@ -200,7 +200,7 @@ export const Item = ({
                       </div>
                     </div>
                   </TooltipTrigger>
-                  <TooltipContent className="bg-neutral-800 text-muted-foreground border-neutral-800 relative left-[230px] top-[55px] text-xs">
+                  <TooltipContent className="dark:bg-neutral-800 text-muted-foreground dark:border-neutral-800 relative left-[230px] top-[55px] text-xs">
                     <p>Edited by <span className="text-white">{user?.fullName}</span> </p>
                     <p>Edited by <span className="text-white">{user?.fullName}</span> </p>
                   </TooltipContent>
@@ -211,7 +211,7 @@ export const Item = ({
           <div
             role="button"
             onClick={onCreate}
-            className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-700"
+            className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300/30 dark:text-muted-foreground/50"
           >
             <Plus className="h-4 w-4 text-muted-foreground" />
           </div>

@@ -65,9 +65,9 @@ export function NavigationMenuListItems() {
           <NavigationMenuTrigger>Product</NavigationMenuTrigger>
           <NavigationMenuContent>
             <div className="flex">
-              <ul className="grid p-2 md:w-[400px] lg:w-[180px] hover:cursor-pointer border-r">
-                <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
-                  <IoDocumentTextOutline className="text-2xl text-yellow-500" />
+              <ul className="grid p-2 md:w-[400px] lg:w-[240px] hover:cursor-pointer border-r">
+                <div className="flex items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
+                  <IoDocumentTextOutline className="text-2xl mr-2 text-yellow-500" />
                   <div>
                     <a>Docs</a>
                     <p className="text-gray-400 text-sm font-light">
@@ -75,7 +75,7 @@ export function NavigationMenuListItems() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
+                <div className="flex  items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
                   <PiBookOpenLight className="text-2xl mr-2 text-red-500" />
                   <div>
                     <a>Wikis</a>
@@ -84,7 +84,7 @@ export function NavigationMenuListItems() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
+                <div className="flex  items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
                   <TbTargetArrow className="text-2xl mr-2 text-blue-600" />
                   <div>
                     <a>Projects</a>
@@ -93,7 +93,7 @@ export function NavigationMenuListItems() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
+                <div className="flex  items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
                   <BsCalendarDate className="text-2xl mr-2 text-orange-500" />
                   <div>
                     <a>Calendar</a>
@@ -103,9 +103,9 @@ export function NavigationMenuListItems() {
                   </div>
                 </div>
               </ul>
-              <div>
-                <ul className="grid p-2 md:w-[400px] lg:w-[250px] hover:cursor-pointer border-r">
-                  <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
+              <div className="flex">
+                <ul className="grid p-2 md:w-[400px] lg:w-[240px] hover:cursor-pointer border-r">
+                  <div className="flex  items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
                     <div>
                       <a>Template gallery</a>
                       <p className="text-gray-400 text-sm font-light">
@@ -113,7 +113,7 @@ export function NavigationMenuListItems() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
+                  <div className="flex  items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
                     <div>
                       <a>Customer story</a>
                       <p className="text-gray-400 text-sm font-light">
@@ -121,7 +121,7 @@ export function NavigationMenuListItems() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
+                  <div className="flex  items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
                     <div>
                       <a>Connections</a>
                       <p className="text-gray-400 text-sm font-light">
@@ -132,8 +132,8 @@ export function NavigationMenuListItems() {
                 </ul>
               </div>
               <div>
-                <ul className="grid p-2 md:w-[400px] lg:w-[250px] hover:cursor-pointer border-r">
-                  <div className="flex items-center hover:bg-gray-400/10 p-1 rounded-sm">
+                <ul className="grid p-2 md:w-[400px] lg:w-[240px] hover:cursor-pointer border-r">
+                  <div className="flex  items-center gap-1 hover:bg-gray-400/10 p-1 rounded-sm">
                     <div>
                       <a>Template gallery</a>
                       <p className="text-gray-400 text-sm font-light">

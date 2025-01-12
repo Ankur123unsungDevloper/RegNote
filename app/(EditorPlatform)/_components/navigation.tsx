@@ -4,7 +4,9 @@
 
 import { 
   ChevronsLeft,
-  MenuIcon
+  MenuIcon,
+  MoreHorizontal,
+  Plus
 } from "lucide-react";
 import {
   ElementRef,
@@ -32,6 +34,7 @@ import {
 import { BsInbox } from "react-icons/bs";
 import { GrHomeRounded } from "react-icons/gr";
 import { DocumentList } from "./document-list";
+
 import {
   Dialog,
   DialogContent,
@@ -48,24 +51,40 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button"
+
 import { TrashBox } from "./trash-box";
 import { useSearch } from "@/hooks/use-search";
-import { SettingBox } from "./setting-box";
+import { SettingBox } from "./(Setting)/setting-box";
 import { PiUserRectangleFill } from "react-icons/pi";
 import { TeamspaceBox } from "./teamspace-box";
 import { useInbox } from "@/hooks/use-inbox";
 import { Navbar } from "./navbar";
 
-import { usePathname } from "next/navigation";
+import {
+  usePathname,
+  useRouter
+} from "next/navigation";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { toast } from "sonner";
 
 
 export const Navigation = () => {
 
+  const router = useRouter();
   const pathname = usePathname();
   const search = useSearch();
   const inbox = useInbox();
   const params = useParams();
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const create = useMutation(api.documents.create);
 
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"aside">>(null);
@@ -133,6 +152,17 @@ export const Navigation = () => {
       navbarRef.current.style.setProperty("left", "0");
       setTimeout(() => setIsResetting(false), 300);
     }
+  };
+
+  const handleCreate = () => {
+    const promise = create({ title: "Untitled" })
+      .then((documentId) => router.push(`/documents/${documentId}`))
+
+    toast.promise(promise, {
+      loading: "Creating a new Note...",
+      success: "New Note created successfully!",
+      error: "Failed to create a new Note. Please try again later.",
+    })
   };
 
   return (
@@ -220,10 +250,33 @@ export const Navigation = () => {
             </TooltipProvider>
           </div>
           <div className="mt-4">
-            <Accordion type="single" collapsible>
-              <AccordionItem value="item-1">
-                <AccordionTrigger className="text-muted-foreground text-xs ml-4 hover:no-underline">
-                  Private
+            <Accordion type="single" defaultValue="private" collapsible className="">
+              <AccordionItem value="private" className="border-none">
+                <AccordionTrigger className="flex items-center justify-between -py-4 py-1 px-2 dark:hover:bg-neutral-700/40 hover:no-underline rounded-md group">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-medium text-muted-foreground">Private</span>
+                  </div>
+                  <div className="flex flex-row items-center">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild className="opacity-0 group-hover:opacity-100">
+                        <Button variant="ghost" size="icon" className="h-6 w-6 ml-auto rounded-sm hover:bg-neutral-300/30 dark:text-muted-foreground/50">
+                          <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-48">
+                        <DropdownMenuItem>Sort</DropdownMenuItem>
+                        <DropdownMenuItem>Delete</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={handleCreate}
+                      className="opacity-0 group-hover:opacity-100 h-6 w-6 ml-auto rounded-sm hover:bg-neutral-300/30 dark:text-muted-foreground/50"
+                    >
+                      <Plus className="h-4 w-4 text-muted-foreground" />
+                    </Button>
+                  </div>
                 </AccordionTrigger>
                 <AccordionContent>
                   <DocumentList />

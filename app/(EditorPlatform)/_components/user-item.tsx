@@ -79,14 +79,14 @@ export const UserItem = () => {
 
   const handleCreate = () => {
     const promise = create({ title: "Untitled" })
-    .then((documentId) => router.push(`/documents/${documentId}`))
+      .then((documentId) => router.push(`/documents/${documentId}`))
 
     toast.promise(promise, {
       loading: "Creating a new Note...",
       success: "New Note created successfully!",
       error: "Failed to create a new Note. Please try again later.",
     })
-  }
+  };
 
   return (
     <div className="grid grid-flow-row items-center justify-start h-8">
