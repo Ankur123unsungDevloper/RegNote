@@ -1,5 +1,8 @@
 # RegNote
 
+![Screenshot 2025-04-07 232113](https://github.com/user-attachments/assets/b23a176b-bfcf-498c-9cf4-163b067d2fca)
+
+
 ## Project Overview
 RegNote is a web application designed to digitize and organize school or college class notes, addressing the challenges students and teachers face in creating and maintaining handwritten notes. Originally conceptualized during my BCA final year as a group project with five classmates, the project was partially developed and demonstrated at that time. Now, as part of my MCA capstone project, I am advancing RegNote to include additional features and improve its functionality.
 
