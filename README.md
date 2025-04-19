@@ -116,7 +116,7 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 ## 📬 Contact
 For feedback, ideas, or collaboration, feel free to connect:
 - 📧 Email: ankurdas1804@gmail.com
-- 🌐 LinkedIn: [Your LinkedIn Profile](www.linkedin.com/in/ankur-das-b71769248)
+- 🌐 LinkedIn: [Your LinkedIn Profile]([www.linkedin.com/in/ankur-das-b71769248](https://www.linkedin.com/in/ankur-das-b71769248/))
 
 ---
 
