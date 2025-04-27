@@ -44,8 +44,7 @@ import { Import } from "./_components/Import";
 export const SettingBox = () => {
 
   const { user } = useUser();
-  const [activeTab, setActiveTab] = useState("-components");
-  const [activeWorkspaceTab, setActiveWorkspaceTab] = useState("");
+  const [activeTab, setActiveTab] = useState<string>("-components");
   
   if (!user) {
     return null; // or render a loading state
@@ -72,7 +71,7 @@ export const SettingBox = () => {
     { id: "sites", icon: FaGlobe2, label: "Sites" },
     { id: "security", icon: FaShieldAlt, label: "Security & data" },
     { id: "identity", icon: FaIdCard, label: "Identity & provisioning" },
-    { id: "connections", icon: FaLink, label: "Connections" },
+    { id: "workspace-connections", icon: FaLink, label: "Connections" },
     { id: "import", icon: FaFileImport, label: "Import" },
   ];
 
@@ -112,7 +111,7 @@ export const SettingBox = () => {
   return (
     <div className="flex w-full h-full">
       <aside className="w-1/4 h-full bg-neutral-300 dark:bg-neutral-700/50 p-2">
-        <div className="mb-8 ml-2">
+        <div className="mb-4 ml-2">
           <h2 className="text-xs font-bold text-muted-foreground mb-2">
             Account
           </h2>
@@ -121,7 +120,7 @@ export const SettingBox = () => {
               <AvatarImage src={user?.imageUrl} />
             </Avatar>
             <div className="flex flex-col items-center justify-start mr-2">
-              <span className="text-start text-sm font-medium mr-16">
+              <span className="text-start text-sm text-black dark:text-white font-medium mr-16">
                 {user?.fullName}
               </span>
               <span className="flex items-center text-xs text-muted-foreground ml-1">
@@ -133,7 +132,7 @@ export const SettingBox = () => {
         <nav className="w-full">
           <ul>
             {navItems.map((item) => (
-              <li key={item.id} className="mb-4">
+              <li key={item.id} className="mb-1">
                 <a
                   href="#"
                   onClick={(e) => {
@@ -143,10 +142,10 @@ export const SettingBox = () => {
                   className={`flex items-center text-sm space-x-2 p-1 rounded-sm w-full ${
                     activeTab === item.id
                       ? "dark:text-white text-black font-bold dark:bg-neutral-700 bg-neutral-400"
-                      : "dark:text-gray-400 text-black dark:hover:text-white dark:hover:bg-neutral-700 hover:bg-neutral-400"
+                      : "dark:text-gray-400 text-black dark:hover:bg-neutral-700 hover:bg-neutral-400"
                   }`}
                 >
-                  <item.icon className={`h-5 w-5 ml-2 ${item.id === "settings" ? "rotate-90" : ""}`} />
+                  <item.icon className={`h-4 w-4 ml-2 ${item.id === "settings" ? "rotate-90" : ""}`} />
                   <span>{item.label}</span>
                 </a>
               </li>
@@ -158,23 +157,22 @@ export const SettingBox = () => {
             </h2>
             <ul>
               {workspaceItems.map((item) => (
-                <li key={item.id} className="mb-4">
+                <li key={item.id} className="mb-1">
                   <a
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      setActiveTab("");
-                      setActiveWorkspaceTab(item.id);
+                      setActiveTab(item.id);
                     }}
                     className={`flex items-center text-sm space-x-2 p-1 rounded-sm w-full ${
-                      activeWorkspaceTab === item.id
-                        ? "dark:text-white text-black bg-neutral-400 dark:bg-neutral-700"
+                      activeTab === item.id
+                        ? "dark:text-white text-black font-bold bg-neutral-400 dark:bg-neutral-700"
                         : item.id === "upgrade"
-                        ? "text-blue-500"
-                        : "text-black dark:hover:text-white"
+                        ? "text-blue-500 dark:hover:bg-neutral-700 hover:bg-neutral-400"
+                        : "dark:text-gray-400 text-black dark:hover:bg-neutral-700 hover:bg-neutral-400"
                     }`}
                   >
-                    <item.icon className="h-5 w-5 ml-2" />
+                    <item.icon className="h-4 w-4 ml-2" />
                     <span>{item.label}</span>
                   </a>
                 </li>

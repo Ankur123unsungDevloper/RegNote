@@ -92,6 +92,7 @@ export const Navigation = () => {
 
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
+  const [favorites, setFavorites] = useState([]);
 
   const handleMouseDown = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -250,7 +251,9 @@ export const Navigation = () => {
             </TooltipProvider>
           </div>
           <div className="mt-4">
-            <Accordion type="single" defaultValue="private" collapsible className="">
+          </div>
+          <div className="mt-4">
+            <Accordion type="single" defaultValue="private" collapsible>
               <AccordionItem value="private" className="border-none">
                 <AccordionTrigger className="flex items-center justify-between -py-4 py-1 px-2 dark:hover:bg-neutral-700/40 hover:no-underline rounded-md group">
                   <div className="flex items-center gap-2">
@@ -283,16 +286,16 @@ export const Navigation = () => {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-            <div className="mt-4">
+            <div>
               <Dialog>
                 <DialogTrigger className="w-full mt-4">
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger className="w-full">
-                      <Item
-                        label="Settings"
-                        icon={IoSettingsOutline}
-                      />
+                        <Item
+                          label="Settings"
+                          icon={IoSettingsOutline}
+                        />
                       </TooltipTrigger>
                       <TooltipContent className="text-muted-foreground relative left-[230px] top-[32px] bg-neutral-700 text-white border-neutral-700">
                         <p className="text-xs">
@@ -334,10 +337,10 @@ export const Navigation = () => {
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger className="w-full">
-                      <Item
-                        label="Trash"
-                        icon={IoTrashOutline}
-                      />
+                        <Item
+                          label="Trash"
+                          icon={IoTrashOutline}
+                        />
                       </TooltipTrigger>
                       <TooltipContent className="text-muted-foreground relative left-[195px] top-[34px] bg-neutral-700 text-white border-neutral-700">
                         <p className="text-xs">
@@ -354,7 +357,7 @@ export const Navigation = () => {
                   <TrashBox />
                 </PopoverContent>
               </Popover>
-              </div>
+            </div>
           </div>
         </div>
         <div
@@ -371,7 +374,7 @@ export const Navigation = () => {
           isMobile && "left-0 w-full"
         )}
       >
-        {!! params.documentId ? (
+        {!!params.documentId ? (
           <Navbar
             isCollapsed={isCollapsed}
             onResetWidth={resetWidth}
@@ -391,4 +394,4 @@ export const Navigation = () => {
       </div>
     </>
   )
-}
+};

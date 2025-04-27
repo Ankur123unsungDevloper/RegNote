@@ -99,7 +99,7 @@ const Heroes = () => {
       </div>
       {isSmallScreen ? (
         <div className="px-8">
-          <div className="grid grid-cols-4 md:row-span-1 gap-4 xl:gap-6 mt-8 xl:px-0">
+          <div className="grid grid-cols-6 md:row-span-1 gap-4 xl:gap-6 mt-8 xl:px-0">
             {tabs.map((tab) => (
               <motion.div
                 key={tab.name}

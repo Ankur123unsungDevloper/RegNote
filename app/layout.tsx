@@ -5,7 +5,6 @@ import { Inter } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { ConvexClientProvider } from "@/components/providers/ConvexClientProvider";
 import { EdgeStoreProvider } from "@/lib/edgestore";
-import { ModalProvider } from "@/components/providers/modal-provider";
 
 const inter = Inter({subsets: ['latin']})
 

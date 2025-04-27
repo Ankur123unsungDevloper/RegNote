@@ -26,7 +26,8 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
-import { IoIosStarOutline } from "react-icons/io";
+import { RiStarLine } from "react-icons/ri";
+import { RiStarOffLine } from "react-icons/ri";
 import {
   Tooltip,
   TooltipContent,
@@ -47,6 +48,7 @@ interface ItemProps {
   onClick?: () => void;
   icon: LucideIcon | typeof IconBase;
   navigateTo?: string;
+  isFavorite?: boolean;
 };
 
 export const Item = ({
@@ -61,17 +63,19 @@ export const Item = ({
   onExpand,
   expanded,
   navigateTo,
+  isFavorite, 
 }: ItemProps) => {
   const { user } = useUser();
   const router = useRouter();
   const create = useMutation(api.documents.create);
   const archive = useMutation(api.documents.archive);
+  const toggleFavorite = useMutation(api.documents.toggleFavorite);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (navigateTo) {
       router.push(navigateTo);
     } else if (onClick) {
-      onClick(); // Don't pass the event argument
+      onClick();
     }
   };
 
@@ -115,6 +119,18 @@ export const Item = ({
         success: "New Note created successfully!",
         error: "Failed to create a new Note. Please try again later.",
     });
+  };
+
+  const onToggleFavorite = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.stopPropagation();
+    if (!id) return;
+    const promise = toggleFavorite({ id })
+      .then(() => {
+        toast.success("Document favorite status updated!");
+      })
+      .catch(() => {
+        toast.error("Failed to update favorite status. Please try again later.");
+      });
   };
 
   const ChevronIcon = expanded ? ChevronDown : ChevronRight;
@@ -161,33 +177,42 @@ export const Item = ({
             >
               <div
                 role="button"
-                className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300/30 dark:text-muted-foreground/50"
+                className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-700"
               >
                 <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              className="w-60"
+              className="w-70 bg-[#262626] border-[#262626] text-white"
               align="start"
               side="right"
               forceMount
             >
-              <DropdownMenuItem
-                onClick={() => { }}
-                className="flex items-center rounded-t-none-sm m-2"
-              >
-                <IoIosStarOutline className="h-4 w-4 mr-2" />
-                Add to Favorites
+              <DropdownMenuItem className="flex items-center justify-center rounded-t-none-sm text-white m-2">
+                <div
+                  onClick={onToggleFavorite}
+                  role="button"
+                  className="flex flex-row items-center justify-center text-sm w-full mr-20"
+                >
+                  {isFavorite ? (
+                    <>
+                      <RiStarOffLine className="h-4 w-4 mr-2" />
+                      Remove from Favorites
+                    </>
+                  ) : (
+                    <>
+                      <RiStarLine className="h-4 w-4 mr-2" />
+                      Add to Favorites
+                    </>
+                  )}
+                </div>
               </DropdownMenuItem>
-              <DropdownMenuSeparator className="dark:bg-[#e1ffe133]" />
-              <DropdownMenuItem
-                onClick={onArchive}
-                className="m-2"
-              >
+              <DropdownMenuSeparator className="bg-[#e1ffe133]" />
+              <DropdownMenuItem onClick={onArchive} className="m-2">
                 <IoTrashOutline className="h-4 w-4 mr-2" />
                 Delete
               </DropdownMenuItem>
-              <DropdownMenuSeparator className="dark:bg-[#e1ffe133]" />
+              <DropdownMenuSeparator className="bg-[#e1ffe133]" />
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger className="flex flex-col items-center justify-center p-2">
@@ -200,7 +225,7 @@ export const Item = ({
                       </div>
                     </div>
                   </TooltipTrigger>
-                  <TooltipContent className="dark:bg-neutral-800 text-muted-foreground dark:border-neutral-800 relative left-[230px] top-[55px] text-xs">
+                  <TooltipContent className="bg-neutral-800 text-muted-foreground border-neutral-800 relative left-[230px] top-[55px] text-xs">
                     <p>Edited by <span className="text-white">{user?.fullName}</span> </p>
                     <p>Edited by <span className="text-white">{user?.fullName}</span> </p>
                   </TooltipContent>
@@ -211,7 +236,7 @@ export const Item = ({
           <div
             role="button"
             onClick={onCreate}
-            className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300/30 dark:text-muted-foreground/50"
+            className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-700"
           >
             <Plus className="h-4 w-4 text-muted-foreground" />
           </div>
@@ -234,4 +259,3 @@ Item.Skeleton = function ItemSkeleton({ level }: { level?: number }) {
     </div>
   );
 }
-

@@ -9,6 +9,7 @@ import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 
 import { MobileSidebar } from "./mobile-sidebar";
+import { UserItem } from "./user-item";
 
 export const Navbar = () => {
   return (

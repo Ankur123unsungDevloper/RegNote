@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db";
 
 import { ListContainer } from "./_components/list-container";
+import { BoardSidebar } from "./_components/board-sidebar";
 
 interface BoardIdPageProps {
   params: {
@@ -40,7 +42,7 @@ const BoardIdPage = async ({
   });
 
   return (
-    <div className="p-4 h-full overflow-x-auto">
+    <div className="p-4 h-full flex overflow-x-auto">
       <ListContainer
         boardId={params.boardId}
         data={lists}

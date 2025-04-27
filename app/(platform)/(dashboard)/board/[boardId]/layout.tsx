@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { db } from "@/lib/db";
 
 import { BoardNavbar } from "./_components/board-navbar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 export async function generateMetadata({ 
   params
@@ -64,7 +65,9 @@ const BoardIdLayout = async ({
         /> 
         <div className="absolute inset-0 bg-black opacity-50" />
       <main className="relative pt-28 h-full">
-        {children}
+        <SidebarProvider>
+          {children}
+        </SidebarProvider>
       </main>
     </div>
   );

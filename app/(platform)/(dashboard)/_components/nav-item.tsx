@@ -4,6 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import {
   Activity,
+  ChevronDown,
   CreditCard,
   Layout,
   Settings,
@@ -93,6 +94,7 @@ export const NavItem = ({
             {organization.name}
           </span>
         </div>
+        <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200" />
       </AccordionTrigger>
       <AccordionContent className="pt-1 text-neutral-700">
         {routes.map((route) => (

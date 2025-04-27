@@ -14,9 +14,12 @@ export default defineSchema({
     coverImage: v.optional(v.string()),
     icon: v.optional(v.string()),
     isPublished: v.boolean(),
-    createdAt: v.number(), // store timestamp as a number (milliseconds since epoch)
-    updatedAt: v.number(), // store timestamp as a number (milliseconds since epoch)
+    isFavorite: v.optional(v.boolean()),
+    createdAt: v.number(),
+    updatedAt: v.number(),
   })
     .index("by_user", ["userId"])
     .index("by_user_parent", ["userId", "parentDocument"])
-})
+    .index("by_user_favorite", ["userId", "isFavorite"])
+});
+

@@ -12,6 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Accordion } from "@/components/ui/accordion";
 
 import { NavItem, Organization } from "./nav-item";
+import { CgNotes } from "react-icons/cg";
 
 interface SidebarProps {
   storageKey?: string;
@@ -77,6 +78,10 @@ export const Sidebar = ({
 
   return (
     <>
+      <div className="font-medium  text-start text-xs flex mb-1">
+        
+      </div>
+      <Separator />
       <div className="font-medium text-xs flex items-center mb-1">
         <span className="pl-4">
           Workspaces
