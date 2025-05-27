@@ -184,9 +184,9 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ## 📬 Contact
 
-For feedback, ideas, or collaboration, feel free to connect:
-📧 Email: [ankurdas1804@gmail.com](mailto:ankurdas1804@gmail.com)
-🌐 LinkedIn: [Ankur Das](https://www.linkedin.com/in/ankur-das-b71769248/)
+For feedback, ideas, or collaboration, feel free to connect: <br/>
+📧 Email: [ankurdas1804@gmail.com](mailto:ankurdas1804@gmail.com) <br/>
+🌐 LinkedIn: [Ankur Das](https://www.linkedin.com/in/ankur-das-b71769248/) <br/>
 
 ---
 
