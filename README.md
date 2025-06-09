@@ -97,7 +97,7 @@ _RegNote_ stands out by focusing solely on **academic needs**, ensuring every fe
 ## 🛠️ Tech Stack & Skills Used
 - **Frontend**: React, Next.js, Tailwind CSS
 - **Backend**: Node.js, Express (Optional)
-- **Database**: MongoDB / Firebase (Future scope)
+- **Database**: MongoDB, Prisma
 - **Tools**: Postman, Git, GitHub, Figma (for UI design)
 
 ### Skills Required
