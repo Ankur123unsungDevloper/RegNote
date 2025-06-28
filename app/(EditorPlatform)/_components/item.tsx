@@ -26,15 +26,13 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
-import { RiStarLine } from "react-icons/ri";
-import { RiStarOffLine } from "react-icons/ri";
+import { RiStarLine, RiStarOffLine } from "react-icons/ri";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
 
 interface ItemProps {
   id?: Id<"documents">;
@@ -47,7 +45,6 @@ interface ItemProps {
   label: string;
   onClick?: () => void;
   icon: LucideIcon | typeof IconBase;
-  navigateTo?: string;
   isFavorite?: boolean;
 };
 
@@ -62,7 +59,6 @@ export const Item = ({
   level = 0,
   onExpand,
   expanded,
-  navigateTo,
   isFavorite, 
 }: ItemProps) => {
   const { user } = useUser();
@@ -71,21 +67,10 @@ export const Item = ({
   const archive = useMutation(api.documents.archive);
   const toggleFavorite = useMutation(api.documents.toggleFavorite);
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (navigateTo) {
-      router.push(navigateTo);
-    } else if (onClick) {
-      onClick();
-    }
-  };
-
-  const onArchive = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
+  const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
     if (!id) return;
-    const promise = archive({ id })
-      .then(() => router.push("/documents"))
+    const promise = archive({ id }).then(() => router.push("/documents"));
 
     toast.promise(promise, {
       loading: "Archiving Document...",
@@ -94,30 +79,25 @@ export const Item = ({
     });
   };
 
-  const handleExpand = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
+  const handleExpand = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
     onExpand?.();
   };
 
-  const onCreate = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
+  const onCreate = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
     if (!id) return;
-    const promise = create({ title: "Untitled", parentDocument: id })
-      .then((documentId) => {
-        if (!expanded) {
-          onExpand?.();
-        }
-        router.push(`/documents/${documentId}`);
-      });
+    const promise = create({ title: "Untitled", parentDocument: id }).then((documentId) => {
+      if (!expanded) {
+        onExpand?.();
+      }
+      router.push(`/documents/${documentId}`);
+    });
 
-      toast.promise(promise, {
-        loading: "Creating a new Note...",
-        success: "New Note created successfully!",
-        error: "Failed to create a new Note. Please try again later.",
+    toast.promise(promise, {
+      loading: "Creating a new Note...",
+      success: "New Note created successfully!",
+      error: "Failed to create a new Note. Please try again later.",
     });
   };
 
@@ -137,9 +117,9 @@ export const Item = ({
 
   return (
     <div
-      onClick={handleClick}
+      onClick={onClick}
       role="button"
-      style={{paddingLeft: level ? `${(level * 12) + 12}px` : "12px"}}
+      style={{ paddingLeft: level ? `${(level * 12) + 12}px` : "12px" }}
       className={cn(
         "group min-h-[27px] text-sm py-1 pr-3 w-full hover:bg-neutral-700/50 flex items-center text-muted-foreground font-medium rounded-sm",
         active && "bg-neutral-700/40 text-white"
@@ -151,9 +131,7 @@ export const Item = ({
           className="h-full rounded-sm hover:bg-neutral-600 mr-1"
           onClick={handleExpand}
         >
-          <ChevronIcon
-            className="h-4 w-4 shrink-0 text-muted-foreground/50"
-          />
+          <ChevronIcon className="h-4 w-4 shrink-0 text-muted-foreground/50" />
         </div>
       )}
       {documentIcon ? (
@@ -161,13 +139,10 @@ export const Item = ({
           {documentIcon}
         </div>
       ) : (
-        <Icon
-          className="shrink-0 h-[18px] w-[18px] mr-2 text-muted-foreground"
-        />
+        <Icon className="shrink-0 h-[18px] w-[18px] mr-2 text-muted-foreground" />
       )}
-      <span className="truncate">
-        {label}
-      </span>
+      <span className="truncate">{label}</span>
+
       {!!id && (
         <div className="ml-auto flex items-center gap-x-2">
           <DropdownMenu>
@@ -207,12 +182,16 @@ export const Item = ({
                   )}
                 </div>
               </DropdownMenuItem>
+
               <DropdownMenuSeparator className="bg-[#e1ffe133]" />
+
               <DropdownMenuItem onClick={onArchive} className="m-2">
                 <IoTrashOutline className="h-4 w-4 mr-2" />
                 Delete
               </DropdownMenuItem>
+
               <DropdownMenuSeparator className="bg-[#e1ffe133]" />
+
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger className="flex flex-col items-center justify-center p-2">
@@ -226,13 +205,14 @@ export const Item = ({
                     </div>
                   </TooltipTrigger>
                   <TooltipContent className="bg-neutral-800 text-muted-foreground border-neutral-800 relative left-[230px] top-[55px] text-xs">
-                    <p>Edited by <span className="text-white">{user?.fullName}</span> </p>
-                    <p>Edited by <span className="text-white">{user?.fullName}</span> </p>
+                    <p>Edited by <span className="text-white">{user?.fullName}</span></p>
+                    <p>Edited by <span className="text-white">{user?.fullName}</span></p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             </DropdownMenuContent>
           </DropdownMenu>
+
           <div
             role="button"
             onClick={onCreate}
@@ -243,8 +223,8 @@ export const Item = ({
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 Item.Skeleton = function ItemSkeleton({ level }: { level?: number }) {
   return (
@@ -258,4 +238,4 @@ Item.Skeleton = function ItemSkeleton({ level }: { level?: number }) {
       <Skeleton className="h-4 w-[30%] bg-neutral-700/60" />
     </div>
   );
-}
+};

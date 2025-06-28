@@ -8,6 +8,7 @@ import { SearchCommand } from '@/components/search-command';
 import { Toaster } from 'sonner';
 import { InboxCommand } from '@/components/inbox-command';
 import { ModalProvider } from '@/components/providers/modal-provider';
+import { HomeCommand } from '@/components/home-command';
 
 const EditorPlatformLayout = ({
   children
@@ -28,6 +29,7 @@ const EditorPlatformLayout = ({
           <ModalProvider />
           <Toaster position='bottom-center' />
           <SearchCommand />
+          <HomeCommand />
           <InboxCommand />
           {children}
         </main>

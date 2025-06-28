@@ -60,12 +60,14 @@ import {
 import { Button } from "@/components/ui/button"
 
 import { TrashBox } from "./trash-box";
-import { useSearch } from "@/hooks/use-search";
 import { SettingBox } from "./(Setting)/setting-box";
 import { PiUserRectangleFill } from "react-icons/pi";
 import { TeamspaceBox } from "./teamspace-box";
-import { useInbox } from "@/hooks/use-inbox";
 import { Navbar } from "./navbar";
+
+import { useSearch } from "@/hooks/use-search";
+import { useHome } from "@/hooks/use-home";
+import { useInbox } from "@/hooks/use-inbox";
 
 import {
   usePathname,
@@ -81,6 +83,7 @@ export const Navigation = () => {
   const router = useRouter();
   const pathname = usePathname();
   const search = useSearch();
+  const home = useHome();
   const inbox = useInbox();
   const params = useParams();
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -216,7 +219,7 @@ export const Navigation = () => {
                   <Item
                     label="Home"
                     icon={GrHomeRounded}
-                    navigateTo="/documents"
+                    onClick={home.onOpen}
                     active={pathname === "/documents"}
                   />
                 </TooltipTrigger>
