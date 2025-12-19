@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from 'lucide-react';
 
 const Heading = () => {
-  return ( 
+  return (
     <div className="max-w-3xl space-y-4">
       <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-20">
         Your Ideas, Documents, & Plans.Unified. Welcome to <br />
@@ -30,8 +30,8 @@ const Heading = () => {
           <ArrowRight className="h-4 w-4 ml-2 hover:underline" strokeWidth={3} />
         </Link>
       </Button>
-      </div>
+    </div>
   );
-}
+};
 
 export default Heading;
