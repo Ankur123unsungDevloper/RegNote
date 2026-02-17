@@ -6,7 +6,9 @@ import {
   ChevronRight, 
   LucideIcon,
   MoreHorizontal,
-  Plus
+  Plus,
+  Star,
+  StarOff
 } from "lucide-react";
 import { IconBase } from "react-icons";
 import { IoTrashOutline } from "react-icons/io5";
@@ -26,7 +28,6 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
-import { RiStarLine, RiStarOffLine } from "react-icons/ri";
 import {
   Tooltip,
   TooltipContent,
@@ -46,6 +47,7 @@ interface ItemProps {
   onClick?: () => void;
   icon: LucideIcon | typeof IconBase;
   isFavorite?: boolean;
+  isFavoriteList?: boolean;
 };
 
 export const Item = ({
@@ -59,13 +61,14 @@ export const Item = ({
   level = 0,
   onExpand,
   expanded,
-  isFavorite, 
+  isFavorite,
+  isFavoriteList
 }: ItemProps) => {
   const { user } = useUser();
   const router = useRouter();
   const create = useMutation(api.documents.create);
   const archive = useMutation(api.documents.archive);
-  const toggleFavorite = useMutation(api.documents.toggleFavorite);
+  const setFavorite = useMutation(api.documents.setFavorite);
 
   const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
@@ -101,17 +104,26 @@ export const Item = ({
     });
   };
 
-  const onToggleFavorite = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const favoriteState = isFavorite;
+
+  const onFavoriteClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     if (!id) return;
-    const promise = toggleFavorite({ id })
-      .then(() => {
-        toast.success("Document favorite status updated!");
-      })
-      .catch(() => {
-        toast.error("Failed to update favorite status. Please try again later.");
-      });
+
+    const promise = setFavorite({
+      id,
+      isFavorite: !favoriteState,
+    });
+
+    toast.promise(promise, {
+      loading: "Updating favorite...",
+      success: !favoriteState
+        ? "Added to favorites"
+        : "Removed from favorites",
+      error: "Failed to update favorite",
+    });
   };
+
 
   const ChevronIcon = expanded ? ChevronDown : ChevronRight;
 
@@ -165,18 +177,22 @@ export const Item = ({
             >
               <DropdownMenuItem className="flex items-center justify-center rounded-t-none-sm text-white m-2">
                 <div
-                  onClick={onToggleFavorite}
-                  role="button"
-                  className="flex flex-row items-center justify-center text-sm w-full mr-20"
+                  onClick={onFavoriteClick}
+                  className="flex items-center text-sm w-full cursor-pointer"
                 >
-                  {isFavorite ? (
+                  {isFavoriteList ? (
                     <>
-                      <RiStarOffLine className="h-4 w-4 mr-2" />
+                      <StarOff className="h-4 w-4 mr-2" />
+                      Remove from Favorites
+                    </>
+                  ) : favoriteState ? (
+                    <>
+                      <StarOff className="h-4 w-4 mr-2" />
                       Remove from Favorites
                     </>
                   ) : (
                     <>
-                      <RiStarLine className="h-4 w-4 mr-2" />
+                      <Star className="h-4 w-4 mr-2" />
                       Add to Favorites
                     </>
                   )}

@@ -6,13 +6,12 @@ import { MenuIcon } from "lucide-react";
 
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { useUser } from "@clerk/nextjs";
 
 import { Title } from "./title";
 import { Banner } from "./banner";
 import { Menu } from "./menu";
 import { Publish } from "./publish";
-import { Update } from "./update";
+import { Favorite } from "./favorite";
 
 import {
   Tooltip,
@@ -31,11 +30,49 @@ export const Navbar = ({
   onResetWidth
 }: NavbarProps) => {
   const params = useParams();
-  const { user } = useUser();
 
   const document = useQuery(api.documents.getById, {
     documentId: params.documentId as Id<"documents">,
   });
+
+  function formatLastUpdated(updatedAt: string | number | Date) {
+    const updated = new Date(updatedAt);
+    const now = new Date();
+
+    const diffMs = now.getTime() - updated.getTime();
+    const diffHours = diffMs / (1000 * 60 * 60);
+
+    // ✅ Within 24 hours
+    if (diffHours < 24) {
+
+      // If less than 1 hour → minutes
+      if (diffHours < 1) {
+        const mins = Math.floor(diffMs / (1000 * 60));
+        return mins <= 1 ? "Just now" : `${mins}m ago`;
+      }
+
+      // If within 24 hours → hours OR exact time (your choice)
+      const hrs = Math.floor(diffHours);
+
+      // Option A → show hours ago
+      return `${hrs}h ago`;
+
+      // Option B → show exact time (use instead if you prefer)
+      // return updated.toLocaleTimeString("en-IN", {
+      //   hour: "numeric",
+      //   minute: "2-digit",
+      //   hour12: true,
+      // });
+    }
+
+    // ✅ More than 24 hours → show date
+    return updated.toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  }
+
 
   if (document === undefined) {
     return (
@@ -51,6 +88,8 @@ export const Navbar = ({
   if (document === null) {
     return null;
   }
+  
+  const formattedUpdatedTime = formatLastUpdated(document.updatedAt);
 
   return (
     <>
@@ -68,22 +107,25 @@ export const Navbar = ({
             <div className="text-xs text-muted-foreground p-2">
               <TooltipProvider>
                 <Tooltip>
-                  <TooltipTrigger className="w-full hover:rounded-sm">
-                    Edited by
+                  <TooltipTrigger className="w-full hover:rounded-sm text-sm">
+                    Edited <span>{formattedUpdatedTime}</span>
                   </TooltipTrigger>
                   <TooltipContent className="text-muted-foreground relative left-[35px] top-[1px]">
-                    <p className="text-[12px] font-medium">
-                      Edited by <span className="font-bold text-[14px] text-gray-300">{user?.fullName}</span>
+                    <p className="text-sm font-medium">
+                      Edited by <span className="font-bold text-gray-300">{document.lastEditedBy}</span> <span>{formattedUpdatedTime}</span>
                     </p>
-                    <p className="text-[12px] font-medium">
-                      Created by <span className="font-bold text-[14px] text-gray-300">{user?.fullName}</span>
+                    <p className="text-sm font-medium">
+                      Created by <span className="font-bold text-gray-300">{document.createdBy}</span> <span>{formattedUpdatedTime}</span>
                     </p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
             </div>
             <Publish initialData={document} />
-            <Update />
+            <Favorite
+              documentId={document._id}
+              isFavorite={document.isFavorite}
+            />
             <Menu documentId={document._id} />
           </div>
         </div>

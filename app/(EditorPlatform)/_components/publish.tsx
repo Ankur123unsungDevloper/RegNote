@@ -86,7 +86,7 @@ export const Publish = ({
     return (
       <Popover>
         <PopoverTrigger asChild>
-          <Button size="sm" variant="ghost">
+          <Button size="sm" variant="ghost" className="dark:text-white">
             Share 
             {initialData.isPublished && (
               <AiOutlineGlobal
@@ -107,16 +107,16 @@ export const Publish = ({
             <TabsContent value="share">This feature is coming soon.</TabsContent>
             <TabsContent value="publish">
               {initialData.isPublished ? (
-                <div className="space-y-4">
-                  <div className="flex items-center justify-center gap-x-2">
+                <div className="space-y-4 w-full">
+                  <div className="flex items-center justify-center gap-x-2 w-full">
                     <AiOutlineGlobal className="text-sky-500 animate-pulse h-4 w-4" />
                     <p className="text-xs font-medium text-sky-500">
                       This note is live on web.
                     </p>
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex items-center w-full">
                     <input 
-                      className="flex-1 px-2 text-xs border rounded-l-md h-8 bg-neutral-700 truncate"
+                      className="flex-1 px-2 text-xs border rounded-l-md w-full h-8 bg-neutral-700 truncate"
                       value={url}
                       disabled
                     />

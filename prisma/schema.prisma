@@ -43,19 +43,32 @@ model List {
   @@index([boardId])
 }
 
+enum COVER_TYPE {
+  COLOR
+  IMAGE
+}
+
+type Cover {
+  type        COVER_TYPE
+  color       String?
+  pattern     String?
+  imageUrl    String?
+  imageSource String?
+}
+
 model Card {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   order       Int
   description String?
 
-  listId      String @db.ObjectId
-  list        List  @relation(fields: [listId], references: [id], onDelete: Cascade)
+  cover       Cover?   // ⬅ MUST use the type here
+
+  listId      String   @db.ObjectId
+  list        List     @relation(fields: [listId], references: [id], onDelete: Cascade)
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-
-  @@index([listId])
 }
 
 enum ACTION {

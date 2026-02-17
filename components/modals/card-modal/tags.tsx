@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 
 interface TagsProps {
   data?: {
-    isWatching: boolean;
+    isWatching: boolean | undefined;
   };
 };
 

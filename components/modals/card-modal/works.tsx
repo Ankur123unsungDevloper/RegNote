@@ -2,171 +2,172 @@
 "use client";
 
 import { toast } from "sonner";
-import { Trash, User } from "lucide-react";
+import { User } from "lucide-react";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { TiTag } from "react-icons/ti";
-import { IoMdCheckboxOutline } from "react-icons/io";
-import { IoMdTime } from "react-icons/io";
+import { IoMdCheckboxOutline, IoMdTime } from "react-icons/io";
 import { RiAttachment2 } from "react-icons/ri";
+import { FaImage } from "react-icons/fa6";
+
 import { useParams } from "next/navigation";
 
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 
 import { CardWithList } from "@/types";
-import { useAction } from "@/hooks/use-action";
 import { copyCard } from "@/actions/copy-card";
-import { Button } from "@/components/ui/button";
 import { deleteCard } from "@/actions/delete-card";
+import { updateCard } from "@/actions/update-card";
+
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+
+import { useAction } from "@/hooks/use-action";
+import { useCardCover } from "@/hooks/use-card-cover";
 import { useCardModal } from "@/hooks/use-card-modal";
+
 import { Calender } from "./_components/calender";
+import { Cover } from "./_components/cover";
+import type { CoverValue } from "./_components/cover";
+import { useState } from "react";
 
 interface WorksProps {
   data: CardWithList;
+}
+
+/* ---------------- COVER MAPPER ---------------- */
+
+const mapCoverToDb = (value: CoverValue) => {
+  if (!value) return null;
+
+  if (value.type === "COLOR") {
+    return {
+      type: "COLOR" as const,
+      color: value.bg?.replace("bg-", "").replace("-400", ""),
+      pattern: value.pattern ?? null,
+    };
+  }
+
+  if (value.type === "IMAGE") {
+    return {
+      type: "IMAGE" as const,
+      imageUrl: value.imageUrl ?? null,
+      imageSource: "unsplash" as const,
+    };
+  }
+
+  return null;
 };
 
-export const Works = ({
-  data,
-}: WorksProps) => {
-  const params = useParams();
-  const cardModal = useCardModal();
 
-  const { 
-    execute: executeCopyCard,
-    isLoading: isLoadingCopy,
-  } = useAction(copyCard, {
+
+/* ---------------- COMPONENT ---------------- */
+
+export const Works = ({ data }: WorksProps) => {
+  const params = useParams();
+  const boardId = params.boardId as string;
+  const cardModal = useCardModal();
+  
+  const toggle = useCardCover((store) => store.toggle);
+  const isOpen = useCardCover((store) => store.isOpen);
+  const onClose = useCardCover((store) => store.onClose);
+
+  /* ---------------- ACTIONS ---------------- */
+
+  const { execute: executeCopyCard } = useAction(copyCard, {
     onSuccess: (data) => {
       toast.success(`Card "${data.title}" copied`);
       cardModal.onClose();
     },
-    onError: (error) => {
-      toast.error(error);
-    },
+    onError: toast.error,
   });
 
-  const { 
-    execute: executeDeleteCard,
-    isLoading: isLoadingDelete,
-  } = useAction(deleteCard, {
+  const { execute: executeDeleteCard } = useAction(deleteCard, {
     onSuccess: (data) => {
       toast.success(`Card "${data.title}" deleted`);
       cardModal.onClose();
     },
-    onError: (error) => {
-      toast.error(error);
-    },
+    onError: toast.error,
   });
 
-  const onCopy = () => {
-    const boardId = params.boardId as string;
+  const { execute: executeUpdateCard } = useAction(updateCard, {
+    onSuccess: () => toast.success("Card updated"),
+    onError: toast.error,
+  });
 
-    executeCopyCard({
-      id: data.id,
-      boardId,
-    });
-  };
+  const [draftCover, setDraftCover] = useState<CoverValue | null>(
+    data.cover as CoverValue | null
+  );
 
-  const onDelete = () => {
-    const boardId = params.boardId as string;
+  /* ---------------- UI ---------------- */
 
-    executeDeleteCard({
-      id: data.id,
-      boardId,
-    });
-  };
-  
   return (
     <div className="space-y-2 mt-2">
-      <Button
-        variant="gray"
-        className="w-full justify-start bg-neutral-700 hover:bg-neutral-500 text-neutral-400"
-        size="inline"
-      >
+      <Button variant="gray" className="w-full justify-start">
         <AiOutlineUserAdd className="h-5 w-5 mr-2" />
         Join
       </Button>
-      <Button
-        variant="gray"
-        className="w-full justify-start bg-neutral-700 hover:bg-neutral-500 text-neutral-400"
-        size="inline"
-      >
+
+      <Button variant="gray" className="w-full justify-start">
         <User className="h-5 w-5 mr-2" />
         Member
       </Button>
-      <Button
-        variant="gray"
-        className="w-full justify-start bg-neutral-700 hover:bg-neutral-500 text-neutral-400"
-        size="inline"
-      >
+
+      <Button variant="gray" className="w-full justify-start">
         <TiTag className="h-5 w-5 mr-2 rotate-[-90deg]" />
         Labels
       </Button>
-      <Button
-        variant="gray"
-        className="w-full justify-start bg-neutral-700 hover:bg-neutral-500 text-neutral-400"
-        size="inline"
-      >
+
+      <Button variant="gray" className="w-full justify-start">
         <IoMdCheckboxOutline className="h-5 w-5 mr-2" />
         Checklist
       </Button>
+
+      {/* Dates */}
       <Dialog>
-        <DialogTrigger className="w-full">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger className="w-full">
-                <Button
-                  variant="gray"
-                  className="w-full justify-start bg-neutral-700 hover:bg-neutral-500 text-neutral-400"
-                  size="inline"
-                >
-                  <IoMdTime className="h-5 w-5 mr-2" />
-                  Dates
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Add Dates</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+        <DialogTrigger asChild>
+          <Button variant="gray" className="w-full justify-start">
+            <IoMdTime className="h-5 w-5 mr-2" />
+            Dates
+          </Button>
         </DialogTrigger>
         <DialogContent className="w-[28rem] h-[42rem] mt-12">
           <Calender />
         </DialogContent>
       </Dialog>
-      <Button
-        variant="gray"
-        className="w-full justify-start bg-neutral-700 hover:bg-neutral-500 text-neutral-400"
-        size="inline"
-      >
+
+      <Button variant="gray" className="w-full justify-start">
         <RiAttachment2 className="h-5 w-5 mr-2" />
         Attachment
       </Button>
-      <Button
-        variant="gray"
-        className="w-full justify-start bg-neutral-700 hover:bg-neutral-500 text-neutral-400"
-        size="inline"
+
+      {/* Cover */}
+      <Dialog
+        open={isOpen}
+        onOpenChange={(open) => {
+          open ? toggle() : toggle();
+        }}
       >
-        <Trash className="h-5 w-5 mr-2" />
-        Cover
-      </Button>
-      <Button
-        variant="gray"
-        className="w-full justify-start bg-neutral-700 hover:bg-neutral-500 text-neutral-400"
-        size="inline"
-      >
+        <DialogTrigger asChild>
+          <Button variant="gray" className="w-full justify-start">
+            <FaImage className="h-5 w-5 mr-2" />
+            Cover
+          </Button>
+        </DialogTrigger>
+
+        <DialogContent className="max-w-[450px]">
+          <Cover
+            value={draftCover}
+            onChange={(value) => setDraftCover(value)}
+            onClose={onClose}
+          />
+        </DialogContent>
+      </Dialog>
+
+      <Button variant="gray" className="w-full justify-start">
         <IoMdTime className="h-5 w-5 mr-2" />
         Custom Fields
       </Button>
@@ -174,12 +175,14 @@ export const Works = ({
   );
 };
 
+/* ---------------- SKELETON ---------------- */
+
 Works.Skeleton = function ActionsSkeleton() {
   return (
     <div className="space-y-2 mt-2">
-      <Skeleton className="w-20 h-5 bg-neutral-200" />
-      <Skeleton className="w-full h-8 bg-neutral-200" />
-      <Skeleton className="w-full h-8 bg-neutral-200" />
+      <Skeleton className="w-full h-8" />
+      <Skeleton className="w-full h-8" />
+      <Skeleton className="w-full h-8" />
     </div>
   );
 };

@@ -44,17 +44,17 @@ export const CardModal = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 md:gap-4 relative bottom-8">
           <div className="col-span-3">
             <div className="w-full space-y-4">
-              {!cardData
+              {/* {!cardData
                 ? <Tags.Skeleton />
-                : <Tags data={cardData} />
-              }
+                : <Tags data={{ isWatching: cardData.isWatching }} />
+              } */}
               {!cardData
                 ? <Description.Skeleton />
                 : <Description data={cardData} />
               }
-              {!auditLogsData
+              {!auditLogsData || !id
                 ? <Activity.Skeleton />
-                : <Activity items={auditLogsData} />
+                : <Activity items={auditLogsData} cardId={id} />
               }
             </div>
           </div>

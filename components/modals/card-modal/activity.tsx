@@ -134,7 +134,7 @@ export const Activity = ({
             <div
               onClick={enableEditing}
               role="button"
-              className="min-h-[20px] bg-neutral-900 text-neutral-700 text-sm px-3 py-2 rounded-md w-full"
+              className="min-h-[20px] bg-neutral-300 text-neutral-700 text-sm px-3 py-2 rounded-md w-full"
             >
               Write a comment...
             </div>

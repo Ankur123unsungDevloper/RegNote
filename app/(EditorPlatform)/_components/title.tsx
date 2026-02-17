@@ -69,14 +69,14 @@ export const Title = ({
           onChange={onChange}
           onKeyDown={onKeyDown}
           value={title}
-          className="h-7 px-2 focus-visible:ring-transparent dark:text-white text-black"
+          className="h-9 px-2 focus-visible:ring-transparent dark:text-white text-black"
         />
       ) : (
         <Button
           onClick={enableInput}
           variant="ghost"
           size="sm"
-          className="font-normal h-auto p-1"
+          className="font-normal h-auto p-1 dark:text-white text-black"
         >
           <span className="truncate">
             {initialData?.title}

@@ -73,9 +73,10 @@ import {
   usePathname,
   useRouter
 } from "next/navigation";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
+import { FavoriteList } from "./favorites-list";
 
 
 export const Navigation = () => {
@@ -88,6 +89,7 @@ export const Navigation = () => {
   const params = useParams();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const create = useMutation(api.documents.create);
+  const favorites = useQuery(api.documents.getFavorites);
 
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"aside">>(null);
@@ -95,7 +97,6 @@ export const Navigation = () => {
 
   const [isResetting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
-  const [favorites, setFavorites] = useState([]);
 
   const handleMouseDown = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -260,7 +261,9 @@ export const Navigation = () => {
               <AccordionItem value="private" className="border-none">
                 <AccordionTrigger className="flex items-center justify-between -py-4 py-1 px-2 dark:hover:bg-neutral-700/40 hover:no-underline rounded-md group">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-medium text-muted-foreground">Private</span>
+                    <span className="text-xs font-medium text-muted-foreground">
+                      Private
+                    </span>
                   </div>
                   <div className="flex flex-row items-center">
                     <DropdownMenu>
@@ -289,6 +292,37 @@ export const Navigation = () => {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
+            {favorites && favorites.length > 0 && (
+              <Accordion type="single" defaultValue="private" collapsible>
+                <AccordionItem value="private" className="border-none">
+                  <AccordionTrigger className="flex items-center justify-between -py-4 py-1 px-2 dark:hover:bg-neutral-700/40 hover:no-underline rounded-md group">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-medium text-muted-foreground">
+                        Favorite
+                      </span>
+                    </div>
+
+                    <div className="flex flex-row items-center">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild className="opacity-0 group-hover:opacity-100">
+                          <Button variant="ghost" size="icon" className="h-6 w-6 ml-auto rounded-sm hover:bg-neutral-300/30 dark:text-muted-foreground/50">
+                            <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-48">
+                          <DropdownMenuItem>Sort</DropdownMenuItem>
+                          <DropdownMenuItem>Delete</DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+                  </AccordionTrigger>
+
+                  <AccordionContent>
+                    <FavoriteList />
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            )}
             <div>
               <Dialog>
                 <DialogTrigger className="w-full mt-4">

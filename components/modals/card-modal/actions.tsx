@@ -75,7 +75,7 @@ export const Actions = ({
         onClick={onCopy}
         disabled={isLoadingCopy}
         variant="gray"
-        className="w-full justify-start bg-neutral-700 hover:bg-neutral-600/50 text-neutral-400"
+        className="w-full justify-start bg-neutral-300 hover:bg-neutral-400/50 text-neutral-900"
         size="inline"
       >
         <Copy className="h-4 w-4 mr-2" />
@@ -85,7 +85,7 @@ export const Actions = ({
         onClick={onDelete}
         disabled={isLoadingDelete}
         variant="gray"
-        className="w-full justify-start bg-neutral-700 hover:bg-neutral-600/50 text-neutral-400"
+        className="w-full justify-start bg-neutral-300 hover:bg-neutral-400/50 text-neutral-900"
         size="inline"
       >
         <Trash className="h-4 w-4 mr-2" />

@@ -16,7 +16,9 @@ export default defineSchema({
     isPublished: v.boolean(),
     isFavorite: v.optional(v.boolean()),
     createdAt: v.number(),
+    createdBy: v.string(),
     updatedAt: v.number(),
+    lastEditedBy: v.string(),
   })
     .index("by_user", ["userId"])
     .index("by_user_parent", ["userId", "parentDocument"])

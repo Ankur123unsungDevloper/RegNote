@@ -64,7 +64,9 @@ export const create = mutation({
       isArchived: false,
       isPublished: false,
       createdAt: currentTimestamp,
+      createdBy: identity.subject,
       updatedAt: currentTimestamp,
+      lastEditedBy: identity.subject,
     });
 
     return documents;
@@ -314,6 +316,8 @@ export const update = mutation({
 
     const document = await ctx.db.patch(args.id, {
       ...rest,
+      updatedAt: Date.now(),
+      lastEditedBy: identity.subject,
     });
 
     return document;
@@ -378,34 +382,51 @@ export const removeCoverImage = mutation({
   }
 });
 
-export const toggleFavorite = mutation({
-  args: { id: v.id("documents") },
-  handler: async (ctx, args) => {
+export const getFavorites = query({
+  args: {},
+  handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
 
     if (!identity) {
-      throw new Error("You must be logged in to perform this action.");
+      throw new Error("Authentication required");
     }
 
     const userId = identity.subject;
 
+    const documents = await ctx.db
+      .query("documents")
+      .withIndex("by_user_favorite", (q) =>
+        q.eq("userId", userId).eq("isFavorite", true)
+      )
+      .filter((q) =>
+        q.eq(q.field("isArchived"), false)
+      )
+      .order("desc")
+      .collect();
+
+    return documents;
+  },
+});
+
+export const setFavorite = mutation({
+  args: {
+    id: v.id("documents"),
+    isFavorite: v.boolean(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Authentication required");
+
+    const userId = identity.subject;
+
     const existingDocument = await ctx.db.get(args.id);
+    if (!existingDocument) throw new Error("Document not found");
 
-    if (!existingDocument) {
-      throw new Error("Document not found.");
-    }
+    if (existingDocument.userId !== userId)
+      throw new Error("Permission denied");
 
-    if (existingDocument.userId !== userId) {
-      throw new Error("You do not have permission to modify this document.");
-    }
-
-    // Toggle the isFavorite field
-    const newFavoriteStatus = !existingDocument.isFavorite;
-
-    const document = await ctx.db.patch(args.id, {
-      isFavorite: newFavoriteStatus,
+    return await ctx.db.patch(args.id, {
+      isFavorite: args.isFavorite,
     });
-
-    return document;
-  }
+  },
 });
