@@ -15,6 +15,7 @@ export default defineSchema({
     icon: v.optional(v.string()),
     isPublished: v.boolean(),
     isFavorite: v.optional(v.boolean()),
+    fontFamily: v.optional(v.string()),
     createdAt: v.number(),
     createdBy: v.string(),
     updatedAt: v.number(),

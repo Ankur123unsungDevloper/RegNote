@@ -11,22 +11,32 @@ import {
   StarOff
 } from "lucide-react";
 import { IconBase } from "react-icons";
-import { IoTrashOutline } from "react-icons/io5";
+import {
+  IoCreateOutline,
+  IoTrashOutline
+} from "react-icons/io5";
+import { LuCopy } from "react-icons/lu";
+import { BiLinkAlt } from "react-icons/bi";
+import { MdOutlineTurnRight } from "react-icons/md";
+
 import { useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import { useUser } from "@clerk/nextjs";
 
-import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
-import { Skeleton } from "@/components/ui/skeleton";
+
+import { Id } from "@/convex/_generated/dataModel";
 import { api } from "@/convex/_generated/api";
+
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator
+  DropdownMenuSeparator,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuShortcut
 } from "@/components/ui/dropdown-menu";
 import {
   Tooltip,
@@ -34,6 +44,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { toast } from "sonner";
+import { Skeleton } from "@/components/ui/skeleton";
+import { TbLayoutSidebarRightFilled } from "react-icons/tb";
+import { FiArrowUpRight } from "react-icons/fi";
 
 interface ItemProps {
   id?: Id<"documents">;
@@ -170,53 +184,93 @@ export const Item = ({
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              className="w-70 bg-[#262626] border-[#262626] text-white"
+              className="w-[265px] h-[374.4px] bg-[#262626] border-[#262626] text-white"
               align="start"
               side="right"
               forceMount
             >
-              <DropdownMenuItem className="flex items-center justify-center rounded-t-none-sm text-white m-2">
-                <div
-                  onClick={onFavoriteClick}
-                  className="flex items-center text-sm w-full cursor-pointer"
-                >
-                  {isFavoriteList ? (
-                    <>
-                      <StarOff className="h-4 w-4 mr-2" />
-                      Remove from Favorites
-                    </>
-                  ) : favoriteState ? (
-                    <>
-                      <StarOff className="h-4 w-4 mr-2" />
-                      Remove from Favorites
-                    </>
-                  ) : (
-                    <>
-                      <Star className="h-4 w-4 mr-2" />
-                      Add to Favorites
-                    </>
-                  )}
-                </div>
-              </DropdownMenuItem>
-
+              <DropdownMenuGroup>
+                <DropdownMenuLabel className="text-muted-foreground text-xs">Page</DropdownMenuLabel>
+                <DropdownMenuItem className="flex items-center justify-center rounded-t-none-sm text-white mx-2 dark:hover:bg-neutral-700/50">
+                  <div
+                    onClick={onFavoriteClick}
+                    className="flex items-center text-sm w-full cursor-pointer"
+                  >
+                    {isFavoriteList ? (
+                      <>
+                        <StarOff className="h-4 w-4 mr-2" />
+                        Remove from Favorites
+                      </>
+                    ) : favoriteState ? (
+                      <>
+                        <StarOff className="h-4 w-4 mr-2" />
+                        Remove from Favorites
+                      </>
+                    ) : (
+                      <>
+                        <Star className="h-4 w-4 mr-2" />
+                        Add to Favorites
+                      </>
+                    )}
+                  </div>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
               <DropdownMenuSeparator className="bg-[#e1ffe133]" />
-
-              <DropdownMenuItem onClick={onArchive} className="m-2">
-                <IoTrashOutline className="h-4 w-4 mr-2" />
-                Delete
-              </DropdownMenuItem>
-
+              <DropdownMenuGroup>
+                <DropdownMenuItem className="mx-2 dark:hover:bg-neutral-700/50">
+                  <BiLinkAlt className="h-5 w-5 mr-2" />
+                  Copy Link
+                </DropdownMenuItem>
+                <DropdownMenuItem className="mx-2 dark:hover:bg-neutral-700/50">
+                  <LuCopy className="h-5 w-5 mr-2" />
+                  Duplicate
+                  <DropdownMenuShortcut className="text-sm tracking-tighter">Ctrl + D</DropdownMenuShortcut>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="mx-2 dark:hover:bg-neutral-700/50">
+                  <IoCreateOutline className="h-5 w-5 mr-2" />
+                  Rename
+                  <DropdownMenuShortcut className="text-sm tracking-tighter">Ctrl + R</DropdownMenuShortcut>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="mx-2 dark:hover:bg-neutral-700/50">
+                  <MdOutlineTurnRight className="h-5 w-5 mr-2" />
+                  Move To
+                  <DropdownMenuShortcut className="text-sm tracking-tighter">Ctrl + P</DropdownMenuShortcut>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={onArchive} className="mx-2 dark:hover:bg-neutral-700/50 dark:hover:text-red-700 hover:text-red-700">
+                  <IoTrashOutline className="h-4 w-4 mr-2" />
+                    Move To Trash
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
               <DropdownMenuSeparator className="bg-[#e1ffe133]" />
-
+              <DropdownMenuGroup>
+                <DropdownMenuItem className="mx-2 dark:hover:bg-neutral-700/50">
+                  <MdOutlineTurnRight className="h-5 w-5 mr-2" />
+                  Turn into Wiki
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator className="bg-[#e1ffe133]" />
+              <DropdownMenuGroup>
+                <DropdownMenuItem className="mx-2 dark:hover:bg-neutral-700/50">
+                  <FiArrowUpRight className="h-5 w-5 mr-2" />
+                  Open in new tab
+                  <DropdownMenuShortcut className="text-sm tracking-tighter">Ctrl + R</DropdownMenuShortcut>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="mx-2 dark:hover:bg-neutral-700/50">
+                  <TbLayoutSidebarRightFilled className="h-5 w-5 mr-2" />
+                  Open in side peak
+                  <DropdownMenuShortcut className="text-sm tracking-tighter">Alt + Click</DropdownMenuShortcut>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator className="bg-[#e1ffe133]" />
               <TooltipProvider>
                 <Tooltip>
-                  <TooltipTrigger className="flex flex-col items-center justify-center p-2">
+                  <TooltipTrigger className="flex flex-col items-start justify-start text-start p-2">
                     <div>
                       <div className="text-xs text-muted-foreground">
                         Last edited by {user?.fullName}
                       </div>
                       <div className="text-xs text-muted-foreground mt-1">
-                        Last edited by {user?.fullName}
+                        Today at {user?.fullName}
                       </div>
                     </div>
                   </TooltipTrigger>

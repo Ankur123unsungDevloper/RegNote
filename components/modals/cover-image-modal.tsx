@@ -84,9 +84,9 @@ export const CoverImageModal= ({
 
   return (
     <Dialog open={coverImage.isOpen} onOpenChange={coverImage.onClose}>
-      <DialogContent className="w-[35rem] h-[35rem] overflow-hidden p-2">
-        <Tabs defaultValue="gallery" className="-mt-2">
-          <TabsList className="grid grid-cols-3 justify-items-start space-x-[6rem]">
+      <DialogContent className="w-[35rem] h-[35rem] overflow-hidden p-2 bg-neutral-800 text-white">
+        <Tabs defaultValue="gallery" className="-mt-2 w-full">
+          <TabsList className="grid grid-cols-3 justify-items-start space-x-[6rem] w-full ">
             <div className="col-span-2 mb-2 space-x-1">
               <TabsTrigger className="hover:bg-neutral-700" value="gallery">Gallery</TabsTrigger>
               <TabsTrigger className="hover:bg-neutral-700" value="upload">Upload</TabsTrigger>
@@ -109,17 +109,17 @@ export const CoverImageModal= ({
             <ScrollArea className="h-[35rem]">
               <h2 className="text-muted-foreground text-xs mb-2">Color & Gradient</h2>
               <div className="grid grid-cols-4 gap-2 mb-4">
-                <div className="cursor-pointer w-full h-16 bg-red-500 rounded"></div>
-                <div className="cursor-pointer w-full h-16 bg-yellow-500 rounded"></div>
-                <div className="cursor-pointer w-full h-16 bg-blue-500 rounded"></div>
-                <div className="cursor-pointer w-full h-16 bg-pink-100 rounded"></div>
-                <div className="cursor-pointer w-full h-16 bg-teal-500 rounded"></div>
-                <div className="cursor-pointer w-full h-16 bg-pink-500 rounded"></div>
-                <div className="cursor-pointer w-full h-16 bg-red-600 rounded"></div>
-                <div className="cursor-pointer w-full h-16 bg-gradient-to-r from-blue-500 to-red-500 rounded"></div>
-                <div className="cursor-pointer w-full h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded"></div>
-                <div className="cursor-pointer w-full h-16 bg-gradient-to-r from-red-500 to-yellow-500 rounded"></div>
-                <div className="cursor-pointer w-full h-16 bg-gradient-to-r from-blue-500 to-green-500 rounded"></div>
+                <button className="cursor-pointer w-full h-16 bg-red-500 rounded"></button>
+                <button className="cursor-pointer w-full h-16 bg-yellow-500 rounded"></button>
+                <button className="cursor-pointer w-full h-16 bg-blue-500 rounded"></button>
+                <button className="cursor-pointer w-full h-16 bg-pink-100 rounded"></button>
+                <button className="cursor-pointer w-full h-16 bg-teal-500 rounded"></button>
+                <button className="cursor-pointer w-full h-16 bg-pink-500 rounded"></button>
+                <button className="cursor-pointer w-full h-16 bg-red-600 rounded"></button>
+                <button className="cursor-pointer w-full h-16 bg-gradient-to-r from-blue-500 to-red-500 rounded"></button>
+                <button className="cursor-pointer w-full h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded"></button>
+                <button className="cursor-pointer w-full h-16 bg-gradient-to-r from-red-500 to-yellow-500 rounded"></button>
+                <button className="cursor-pointer w-full h-16 bg-gradient-to-r from-blue-500 to-green-500 rounded"></button>
               </div>
               <h2 className="text-muted-foreground text-xs mb-2">James Webb Telescope</h2>
               <div className="grid grid-cols-4 gap-2 mb-4">

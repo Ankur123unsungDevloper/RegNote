@@ -19,12 +19,14 @@ interface EditorProps {
   onChange: (value: string) => void;
   initialContent?: string;
   editable?: boolean;
+  fontFamily?: string;
 };
 
 const Editor = ({
   onChange,
   initialContent,
-  editable
+  editable,
+  fontFamily
 }: EditorProps) => {
   const { resolvedTheme } = useTheme();
   const { edgestore } = useEdgeStore();
@@ -39,15 +41,22 @@ const Editor = ({
   }
 
   const editor: BlockNoteEditor = useCreateBlockNote({
-    initialContent: initialContent 
-      ? JSON.parse(initialContent) as PartialBlock[] 
+    initialContent: initialContent
+      ? JSON.parse(initialContent) as PartialBlock[]
       : undefined,
     
     uploadFile: handleUpload
   })
 
+  const fontClass =
+  fontFamily === "serif"
+    ? "font-serif"
+    : fontFamily === "mono"
+    ? "font-mono"
+    : "font-sans";
+
   return (
-    <div>
+    <div className={fontClass}>
       <BlockNoteView
         editor={editor}
         theme={resolvedTheme === "dark" ? "dark" : "light"}
@@ -56,6 +65,6 @@ const Editor = ({
       />
     </div>
   )
-}
+};
 
 export default Editor;

@@ -18,8 +18,9 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input"
-import { FaFileExport } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
+
+import { BiExport } from "react-icons/bi";
 
 import jsPDF from 'jspdf';
 
@@ -35,10 +36,10 @@ export const Export = () => {
   return (
     <Dialog>
       <DialogTrigger onClick={(e) => e.stopPropagation()} className="flex flex-row items-center w-full">
-        <FaFileExport className="h-5 w-5 mr-2" />
+        <BiExport className="h-5 w-5 mr-2" />
         Export
       </DialogTrigger>
-      <DialogContent className="flex w-[26rem]">
+      <DialogContent className="flex w-[26rem] bg-neutral-800">
         <DialogHeader>
           <DialogDescription className="flex flex-col items-center">
             <div className="flex flex-row items-center space-x-10">
@@ -60,7 +61,7 @@ export const Export = () => {
                 </Select>
               </div>
             </div>
-            <div className="flex flex-row items-center space-x-10">
+            {/* <div className="flex flex-row items-center space-x-10">
               <div className="w-64">
                 <p className="text-sm text-muted-foreground">
                   Include databases
@@ -155,7 +156,7 @@ export const Export = () => {
               >
                 Export
               </Button>
-            </div>
+            </div> */}
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

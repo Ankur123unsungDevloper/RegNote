@@ -68,11 +68,19 @@ const DocumentIdPage = ({
     return <div>Not found</div>
   }
 
+  const fontClass =
+  document.fontFamily === "serif"
+    ? "font-serif"
+    : document.fontFamily === "mono"
+    ? "font-mono"
+    : "font-sans"; // default
+
+
   return (
     <ScrollArea className="h-[48rem] w-full overflow-hidden">
       <div className="pb-40">
         <Cover url={document.coverImage} />
-        <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
+        <div className={`md:max-w-3xl lg:max-w-4xl mx-auto ${fontClass}`}>
           <Toolbar initialData={document} />
           <Editor
             onChange={onChange}

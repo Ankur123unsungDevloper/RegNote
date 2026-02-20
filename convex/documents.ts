@@ -430,3 +430,27 @@ export const setFavorite = mutation({
     });
   },
 });
+
+export const setFont = mutation({
+  args: {
+    id: v.id("documents"),
+    fontFamily: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
+    const doc = await ctx.db.get(args.id);
+    if (!doc) throw new Error("Not found");
+
+    if (doc.userId !== identity.subject) {
+      throw new Error("Permission denied");
+    }
+
+    return await ctx.db.patch(args.id, {
+      fontFamily: args.fontFamily,
+      updatedAt: Date.now(),
+      lastEditedBy: identity.subject,
+    });
+  },
+});

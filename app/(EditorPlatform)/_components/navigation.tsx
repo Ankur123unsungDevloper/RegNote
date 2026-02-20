@@ -301,7 +301,6 @@ export const Navigation = () => {
                         Favorite
                       </span>
                     </div>
-
                     <div className="flex flex-row items-center">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild className="opacity-0 group-hover:opacity-100">
@@ -316,7 +315,6 @@ export const Navigation = () => {
                       </DropdownMenu>
                     </div>
                   </AccordionTrigger>
-
                   <AccordionContent>
                     <FavoriteList />
                   </AccordionContent>

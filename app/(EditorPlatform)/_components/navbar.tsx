@@ -126,7 +126,11 @@ export const Navbar = ({
               documentId={document._id}
               isFavorite={document.isFavorite}
             />
-            <Menu documentId={document._id} />
+            <Menu
+              documentId={document._id}
+              initialData={document}
+              currentFont={document.fontFamily}
+            />
           </div>
         </div>
       </nav>
